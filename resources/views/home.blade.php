@@ -5,16 +5,29 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
+                <div class="card-header">Main Functions</div>
 
                 <div class="card-body">
                     @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
+                    <div class="alert alert-success" role="alert">
+                        {{ session('status') }}
+                    </div>
                     @endif
+                    <div class="row text-center">
+                        <div class="col-sm-4">
+                            <h4><a href="/management"> Management</a></h4>
+                            <img width="50px" src="{{asset('images/management.png')}}" />
+                        </div>
+                        <div class="col-sm-4">
+                            <h4><a href="/cashier"> Cachier</a></h4>
+                            <img width="50px" src="{{asset('images/cashier-machine.png')}}" />
+                        </div>
+                        <div class="col-sm-4">
+                            <h4><a href="/report"> Report</a></h4>
+                            <img width="50px" src="{{asset('images/statistics.png')}}" />
+                        </div>
 
-                    {{ __('You are logged in!') }}
+                    </div>
                 </div>
             </div>
         </div>
