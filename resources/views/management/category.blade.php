@@ -15,6 +15,12 @@
             <i class="fa-solid fa-list"></i> Category
             <a href="/management/category/create" class="btn btn-success btn-sm" style="float: right;"><i class="fas fa-plus"></i> Create Category</a>
             <hr>
+            @if(Session()->has('status'))
+            <div class="alert alert-success">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">× </span>
+                {{Session()->get('status')}}
+            </div>
+            @endif
         </div>
     </div>
 </div>

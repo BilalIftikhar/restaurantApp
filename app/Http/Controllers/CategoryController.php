@@ -35,10 +35,14 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required|unique:categories|max:255'
+        ]);
         $category = new category();
         $category->name = $request->name;
         $category->save();
-        return (redirect('/management/category'));
+        $request->session()->flash('status', $request->name . " is successfully save");
+        return (redirect('/management/category'))->with('success',$request->name.'is save successfully!');;
     }
 
     /**
