@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\MenuController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -25,3 +27,4 @@ Route::get('/management', function () {
     return view('management.index');
 });
 Route::resource('/management/category', CategoryController::class);
+Route::resource('/management/menu', MenuController::class);

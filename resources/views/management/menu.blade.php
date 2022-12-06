@@ -5,8 +5,8 @@
     <div class="row justify-content-center">
         @include('management.inc.sidebar')
         <div class="col-md-8">
-            <i class="fa-solid fa-list"></i> Category
-            <a href="/management/category/create" class="btn btn-success btn-sm" style="float: right;"><i class="fas fa-plus"></i> Create Category</a>
+            <i class="fa-solid fa-burger"></i> Menu
+            <a href="/management/menu/create" class="btn btn-success btn-sm" style="float: right;"><i class="fas fa-plus"></i> Create Menu</a>
             <hr>
             @if(Session()->has('status'))
             <div class="alert alert-success">
@@ -18,28 +18,32 @@
                 <thead>
                     <tr>
                         <th scope="col">ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Picture</th>
+                        <th scope="col">Dscription</th>
                         <th scope="col">Category</th>
                         <th scope="col">Edit</th>
                         <th scope="col">Delete</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($categories as $category)
+                    @foreach($menus as $menu)
                     <tr>
-                        <th scope="row">{{$category->id}}</th>
-                        <td>{{$category->name}}</td>
+                        <td>{{$menu->id}}</td>
+                        <td>{{$menu->name}}</td>
+                        <td>{{$menu->price}}</td>
                         <td>
-                            <a href="/management/category/{{$category->id}}/edit" class="btn btn-warning">Edit</a>
+                            <img src="{{asset('menu_images')}}/{{$menu->image}}" alt="" width="120px" height="120px">
                         </td>
-                        <td>
-                            <form action="/management/category/{{$category->id}}" method="post">
-                                @csrf
-                                @method('DELETE')
-                                <input type="submit" value="Delete" class="btn btn-danger">
-                            </form>
-                        </td>
+                        <td>{{$menu->description}}</td>
+                        <td>{{$menu->category_id}}</td>
+                        <td><a href="" type="button" class="btn btn-primary">Edit</a></td>
+                        <td><a href="" type="button" class="btn btn-danger">Delete</a></td>
+
                     </tr>
                     @endforeach
+
                 </tbody>
             </table>
         </div>

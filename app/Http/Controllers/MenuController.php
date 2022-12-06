@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Models\category;
+use App\Models\menu;
 
-class CategoryController extends Controller
+
+class MenuController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +16,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $category = category::all();
-        return view('management.category')->with('categories', $category);
+        $menus = menu::all();
+        return view('management.menu')->with('menus', $menus);
     }
 
     /**
@@ -26,7 +27,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('management.create');
+        $categories = category::all();
+        return view('management.createmenu')->with('categories', $categories);
     }
 
     /**
@@ -38,14 +40,33 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|unique:categories|max:255'
+            'name' => 'required|unique:menus|max:255',
+            'price' => 'required|numeric',
+            'category_id' => 'required|numeric'
         ]);
-        $category = new category();
-        $category->name = $request->name;
-        $category->save();
-        $request->session()->flash('status', $request->name . " is successfully save");
-        return (redirect('/management/category'));
+        //if a user does not uploade an image, use noimge.png for the menu
+        $imageName = "noimage.png";
+
+        //if a user upload image
+        if ($request->image) {
+            $request->validate([
+                'image' => 'nullable|file|image|mimes:jpeg,png,jpg|max:5000'
+            ]);
+            $imageName = date('mdYHis') . uniqid() . '.' . $request->image->extension();
+            $request->image->move(public_path('menu_images'), $imageName);
+        }
+        //save information to Menus table
+        $menu = new menu();
+        $menu->name = $request->name;
+        $menu->price = $request->price;
+        $menu->image = $imageName;
+        $menu->description = $request->description;
+        $menu->category_id = $request->category_id;
+        $menu->save();
+        $request->session()->flash('status', $request->name . ' is saved successfully');
+        return redirect('/management/menu');
     }
+
 
     /**
      * Display the specified resource.
@@ -66,8 +87,7 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $category = category::find($id);
-        return view('management.edit')->with('category', $category);
+        //
     }
 
     /**
@@ -79,14 +99,7 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'name' => 'required|unique:categories|max:255'
-        ]);
-        $category = category::find($id);
-        $category->name = $request->name;
-        $category->save();
-        $request->session()->flash('status', $request->name . " is updated successfully ");
-        return (redirect('/management/category'));
+        //
     }
 
     /**
@@ -97,8 +110,6 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        category::destroy($id);
-        Session()->flash('status', "category is deleted  successfully ");
-        return (redirect('/management/category'));
+        //
     }
 }
