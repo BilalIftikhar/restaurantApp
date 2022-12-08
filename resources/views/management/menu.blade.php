@@ -37,10 +37,14 @@
                             <img src="{{asset('menu_images')}}/{{$menu->image}}" alt="" width="120px" height="120px">
                         </td>
                         <td>{{$menu->description}}</td>
-                        <td>{{$menu->category_id}}</td>
-                        <td><a href="" type="button" class="btn btn-primary">Edit</a></td>
-                        <td><a href="" type="button" class="btn btn-danger">Delete</a></td>
-
+                        <td>{{$menu->category->name}}</td>
+                        <td><a href="/management/menu/{{$menu->id}}/edit" type="button" class="btn btn-warning">Edit</a></td>
+                        <td>
+                            <form action="/management/menu/{{$menu->id}}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <input type="submit" value="Delete" class="btn btn-danger">
+                            </form>
                     </tr>
                     @endforeach
 
