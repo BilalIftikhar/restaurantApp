@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MenuController;
-
+use App\Http\Controllers\tableController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,3 +28,4 @@ Route::get('/management', function () {
 });
 Route::resource('/management/category', CategoryController::class);
 Route::resource('/management/menu', MenuController::class);
+Route::resource('/management/table', tableController::class);
