@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class tableController extends Controller
+use App\Models\Table;
+
+class TableController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +15,8 @@ class tableController extends Controller
      */
     public function index()
     {
-        return view('management.table');
+        $tables = Table::all();
+        return view('management.table')->with('tables', $tables);
     }
 
     /**
@@ -34,7 +37,12 @@ class tableController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate(['name' => 'required|unique:tables|max:255']);
+        $table = new Table();
+        $table->name = $request->name;
+        $table->save();
+        $request->session()->flash('status', 'Table ' . $request->name . ' is created successfully');
+        return redirect('management/table');
     }
 
     /**
@@ -56,7 +64,8 @@ class tableController extends Controller
      */
     public function edit($id)
     {
-        //
+        $table = Table::find($id);
+        return view('management.editTable')->with('table', $table);
     }
 
     /**
@@ -68,7 +77,12 @@ class tableController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate(['name' => 'required|unique:tables|max:255']);
+        $table = Table::find($id);
+        $table->name = $request->name;
+        $table->save();
+        $request->session()->flash('status', 'The table is updated to ' . $request->name . ' successfully');
+        return redirect('/management/table');
     }
 
     /**
@@ -79,6 +93,8 @@ class tableController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Table::destroy($id);
+        Session()->flash('status', 'The table is deleted successfully');
+        return redirect('/management/table');
     }
 }

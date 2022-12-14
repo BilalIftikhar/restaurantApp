@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\tableController;
+use App\Http\Controllers\CashierController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +28,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/management', function () {
     return view('management.index');
 });
+Route::get('/cashier', [App\Http\Controllers\CashierController::class, 'index']);
+Route::get('/cashier/getTable', [App\Http\Controllers\CashierController::class, 'getTable']);
+Route::get('/cashier/getMenuTable/{id}', [App\Http\Controllers\CashierController::class, 'getMenuTable']);
 Route::resource('/management/category', CategoryController::class);
 Route::resource('/management/menu', MenuController::class);
 Route::resource('/management/table', tableController::class);

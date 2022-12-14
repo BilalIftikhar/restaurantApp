@@ -17,3 +17,12 @@ a:hover {
 .closebtn:hover {
     color: red;
 }
+#btn-show-tables {
+    padding: 2% 30%;
+}
+.badge-success {
+    background: darkgreen;
+}
+.nav-link {
+    color: #343a40;
+}
