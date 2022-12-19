@@ -31,6 +31,7 @@ Route::get('/management', function () {
 Route::get('/cashier', [App\Http\Controllers\CashierController::class, 'index']);
 Route::get('/cashier/getTable', [App\Http\Controllers\CashierController::class, 'getTable']);
 Route::get('/cashier/getMenuTable/{id}', [App\Http\Controllers\CashierController::class, 'getMenuTable']);
+Route::post('/cashier/orderFood', [App\Http\Controllers\CashierController::class, 'orderFood']);
 Route::resource('/management/category', CategoryController::class);
 Route::resource('/management/menu', MenuController::class);
 Route::resource('/management/table', tableController::class);
